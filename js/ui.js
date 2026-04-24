@@ -36,7 +36,11 @@ const UI = {
             medalDisplay: document.getElementById('medal-display'),
             medalName: document.getElementById('medal-name'),
             
-            nextLevelBtn: document.getElementById('next-level-btn')
+            nextLevelBtn: document.getElementById('next-level-btn'),
+            
+            customAlert: document.getElementById('custom-alert'),
+            alertMessage: document.getElementById('alert-message'),
+            alertOkBtn: document.getElementById('alert-ok-btn')
         };
     },
     
@@ -80,6 +84,25 @@ const UI = {
         document.getElementById('exit-to-menu-btn').addEventListener('click', () => {
             Game.exitToMenu();
         });
+        
+        if (this.elements.alertOkBtn) {
+            this.elements.alertOkBtn.addEventListener('click', () => {
+                this.hideAlert();
+            });
+        }
+    },
+    
+    showAlert(message) {
+        if (this.elements.customAlert && this.elements.alertMessage) {
+            this.elements.alertMessage.innerHTML = message;
+            this.elements.customAlert.style.display = 'flex';
+        }
+    },
+    
+    hideAlert() {
+        if (this.elements.customAlert) {
+            this.elements.customAlert.style.display = 'none';
+        }
     },
     
     hideAllMenus() {
@@ -245,7 +268,7 @@ const UI = {
                     if (Storage.unlockSkin(skin.id)) {
                         this.renderSkins();
                     } else {
-                        alert(`能量不足！需要 ${skin.unlockCost} 能量来解锁此皮肤。`);
+                        this.showAlert(`能量不足！需要 <span>${skin.unlockCost}</span> 能量来解锁此皮肤。<br><br>当前能量：<span>${Storage.totalEnergy}</span>`);
                     }
                 }
             });
