@@ -26,7 +26,7 @@ const Spaceship = {
             specular: 0x444444
         });
         const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-        body.rotation.x = Math.PI / 2;
+        body.rotation.x = -Math.PI / 2;
         body.castShadow = true;
         this.group.add(body);
         

@@ -19,32 +19,41 @@ const EnergyManager = {
         
         const coreGeometry = new THREE.OctahedronGeometry(GameConfig.ENERGY.size, 0);
         const coreMaterial = new THREE.MeshPhongMaterial({
-            color: GameConfig.ENERGY.color,
-            emissive: GameConfig.ENERGY.glowColor,
-            emissiveIntensity: 0.5,
-            shininess: 100,
+            color: 0x00ffaa,
+            emissive: 0x00ff44,
+            emissiveIntensity: 1.2,
+            shininess: 150,
             transparent: true,
-            opacity: 0.9
+            opacity: 0.95
         });
         const core = new THREE.Mesh(coreGeometry, coreMaterial);
         core.castShadow = true;
         group.add(core);
         
-        const glowGeometry = new THREE.OctahedronGeometry(GameConfig.ENERGY.size * 1.5, 0);
+        const glowGeometry = new THREE.OctahedronGeometry(GameConfig.ENERGY.size * 2.0, 0);
         const glowMaterial = new THREE.MeshBasicMaterial({
-            color: GameConfig.ENERGY.glowColor,
+            color: 0x00ff88,
             transparent: true,
-            opacity: 0.3,
+            opacity: 0.4,
             side: THREE.BackSide
         });
         const glow = new THREE.Mesh(glowGeometry, glowMaterial);
         group.add(glow);
         
+        const innerGlowGeometry = new THREE.OctahedronGeometry(GameConfig.ENERGY.size * 1.3, 0);
+        const innerGlowMaterial = new THREE.MeshBasicMaterial({
+            color: 0x88ffcc,
+            transparent: true,
+            opacity: 0.3
+        });
+        const innerGlow = new THREE.Mesh(innerGlowGeometry, innerGlowMaterial);
+        group.add(innerGlow);
+        
         const ringGeometry = new THREE.TorusGeometry(GameConfig.ENERGY.size * 1.2, 0.05, 8, 16);
         const ringMaterial = new THREE.MeshBasicMaterial({
-            color: GameConfig.ENERGY.color,
+            color: 0x00ffcc,
             transparent: true,
-            opacity: 0.6
+            opacity: 0.8
         });
         const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
         ring1.rotation.x = Math.PI / 2;
@@ -54,7 +63,7 @@ const EnergyManager = {
         ring2.rotation.y = Math.PI / 2;
         group.add(ring2);
         
-        const light = new THREE.PointLight(GameConfig.ENERGY.glowColor, 1, 5);
+        const light = new THREE.PointLight(0x00ff88, 2.5, 8);
         group.add(light);
         
         const spawnX = Utils.randomRange(-8, 8);

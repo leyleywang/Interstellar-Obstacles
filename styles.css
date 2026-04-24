@@ -492,3 +492,90 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* 自定义提示框 */
+.custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 10, 30, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.alert-box {
+    background: linear-gradient(135deg, rgba(0, 40, 80, 0.95) 0%, rgba(0, 20, 50, 0.98) 100%);
+    border: 2px solid rgba(0, 200, 255, 0.5);
+    border-radius: 20px;
+    padding: 40px 50px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 50px rgba(0, 150, 255, 0.3),
+                inset 0 0 30px rgba(0, 100, 200, 0.1);
+    animation: alertPopIn 0.3s ease-out;
+}
+
+@keyframes alertPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.alert-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: alertPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes alertPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.alert-message {
+    font-size: 18px;
+    color: #aaccff;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.alert-message span {
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.alert-btn {
+    padding: 12px 50px;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .alert-box {
+        padding: 30px 35px;
+        margin: 20px;
+    }
+    
+    .alert-icon {
+        font-size: 36px;
+    }
+    
+    .alert-message {
+        font-size: 16px;
+    }
+}
