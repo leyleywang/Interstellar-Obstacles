@@ -6,6 +6,11 @@ const Spaceship = {
     engineLight: null,
     trailParticles: [],
     
+    keys: {
+        left: false,
+        right: false
+    },
+    
     init() {
         this.createShip();
         this.createEngineLight();
@@ -106,23 +111,33 @@ const Spaceship = {
     setupControls() {
         document.addEventListener('keydown', (e) => {
             if (Game.state !== 'playing') return;
+            e.preventDefault();
             
             switch(e.key) {
                 case 'ArrowLeft':
                 case 'a':
                 case 'A':
-                    this.targetX = Math.max(
-                        GameConfig.SHIP.minX,
-                        this.targetX - 2
-                    );
+                    this.keys.left = true;
                     break;
                 case 'ArrowRight':
                 case 'd':
                 case 'D':
-                    this.targetX = Math.min(
-                        GameConfig.SHIP.maxX,
-                        this.targetX + 2
-                    );
+                    this.keys.right = true;
+                    break;
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    this.keys.left = false;
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    this.keys.right = false;
                     break;
             }
         });
@@ -131,8 +146,23 @@ const Spaceship = {
     update(deltaTime) {
         if (!this.group) return;
         
-        const moveSpeed = GameConfig.SHIP.moveSpeed;
-        this.currentX = Utils.lerp(this.currentX, this.targetX, moveSpeed);
+        const moveSpeedPerFrame = 0.25;
+        
+        if (this.keys.left) {
+            this.targetX = Math.max(
+                GameConfig.SHIP.minX,
+                this.targetX - moveSpeedPerFrame
+            );
+        }
+        if (this.keys.right) {
+            this.targetX = Math.min(
+                GameConfig.SHIP.maxX,
+                this.targetX + moveSpeedPerFrame
+            );
+        }
+        
+        const lerpSpeed = GameConfig.SHIP.moveSpeed;
+        this.currentX = Utils.lerp(this.currentX, this.targetX, lerpSpeed);
         this.group.position.x = this.currentX;
         
         const tilt = (this.targetX - this.currentX) * 0.15;
@@ -208,6 +238,8 @@ const Spaceship = {
     reset() {
         this.targetX = 0;
         this.currentX = 0;
+        this.keys.left = false;
+        this.keys.right = false;
         if (this.group) {
             this.group.position.x = 0;
             this.group.position.y = 0.5;
