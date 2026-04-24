@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星际障碍闯关 - Interstellar Obstacles</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+    </div>
+    
+    <!-- UI 界面 -->
+    <div id="ui-container">
+        <!-- 游戏状态UI -->
+        <div id="game-hud" style="display: none;">
+            <div class="hud-item">
+                <span class="hud-label">关卡</span>
+                <span id="level-display" class="hud-value">1</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">能量块</span>
+                <span id="energy-display" class="hud-value">0</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">进度</span>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">用时</span>
+                <span id="time-display" class="hud-value">00:00</span>
+            </div>
+        </div>
+        
+        <!-- 开始界面 -->
+        <div id="start-screen" class="menu-screen">
+            <h1 class="game-title">星际障碍闯关</h1>
+            <p class="game-subtitle">Interstellar Obstacles</p>
+            <div class="menu-buttons">
+                <button id="start-btn" class="menu-btn">开始游戏</button>
+                <button id="stats-btn" class="menu-btn">游戏记录</button>
+                <button id="skins-btn" class="menu-btn">飞船皮肤</button>
+            </div>
+            <div class="controls-info">
+                <p>操作说明：使用 ← → 方向键 或 A D 键控制飞船左右移动</p>
+            </div>
+        </div>
+        
+        <!-- 关卡选择界面 -->
+        <div id="level-select-screen" class="menu-screen" style="display: none;">
+            <h2 class="menu-title">选择关卡</h2>
+            <div id="level-grid" class="level-grid">
+                <!-- 动态生成关卡按钮 -->
+            </div>
+            <button id="back-from-levels" class="menu-btn back-btn">返回</button>
+        </div>
+        
+        <!-- 游戏记录界面 -->
+        <div id="stats-screen" class="menu-screen" style="display: none;">
+            <h2 class="menu-title">游戏记录</h2>
+            <div id="stats-content" class="stats-content">
+                <!-- 动态生成记录 -->
+            </div>
+            <button id="back-from-stats" class="menu-btn back-btn">返回</button>
+        </div>
+        
+        <!-- 飞船皮肤界面 -->
+        <div id="skins-screen" class="menu-screen" style="display: none;">
+            <h2 class="menu-title">飞船皮肤</h2>
+            <div id="skins-content" class="skins-content">
+                <!-- 动态生成皮肤 -->
+            </div>
+            <button id="back-from-skins" class="menu-btn back-btn">返回</button>
+        </div>
+        
+        <!-- 游戏结束界面 -->
+        <div id="game-over-screen" class="menu-screen" style="display: none;">
+            <h2 class="menu-title game-over-title">闯关失败</h2>
+            <div class="result-info">
+                <p>关卡：<span id="fail-level">1</span></p>
+                <p>收集能量块：<span id="fail-energy">0</span></p>
+                <p>用时：<span id="fail-time">00:00</span></p>
+            </div>
+            <div class="menu-buttons">
+                <button id="retry-btn" class="menu-btn">重新挑战</button>
+                <button id="exit-btn" class="menu-btn">返回主菜单</button>
+            </div>
+        </div>
+        
+        <!-- 关卡完成界面 -->
+        <div id="level-complete-screen" class="menu-screen" style="display: none;">
+            <h2 class="menu-title level-complete-title">关卡通关！</h2>
+            <div class="result-info">
+                <p>关卡：<span id="complete-level">1</span></p>
+                <p>收集能量块：<span id="complete-energy">0</span></p>
+                <p>用时：<span id="complete-time">00:00</span></p>
+                <p id="medal-display" style="display: none;">获得勋章：<span id="medal-name">青铜星际勋章</span></p>
+            </div>
+            <div class="menu-buttons">
+                <button id="next-level-btn" class="menu-btn">下一关</button>
+                <button id="exit-to-menu-btn" class="menu-btn">返回主菜单</button>
+            </div>
+        </div>
+        
+        <!-- BOSS战界面提示 -->
+        <div id="boss-warning" class="boss-warning" style="display: none;">
+            <h2>⚠️ BOSS来袭 ⚠️</h2>
+            <p>击败陨石群BOSS！</p>
+        </div>
+    </div>
+    
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/scene.js"></script>
+    <script src="js/spaceship.js"></script>
+    <script src="js/obstacles.js"></script>
+    <script src="js/energy.js"></script>
+    <script src="js/boss.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
